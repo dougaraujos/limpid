@@ -1,0 +1,60 @@
+/*====================================*\
+	#UTILS
+\*====================================*/
+
+.clearfix:after{
+	content: ".";
+	display: block;
+	height: 0;
+	line-height: 0;
+	visibility: hidden;
+	overflow: hidden;
+	font-size: 0;
+	clear: both;
+}
+
+* html .clearfix, /* IE6 */
+*:first-child+html .clearfix{ /* IE7 */
+	zoom: 1
+}
+
+
+/*------------------------------------*\
+	#HIDE TEXT WITH SEO
+\*------------------------------------*/
+
+@mixin hide-text{
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+
+/*------------------------------------*\
+	#TEXT OVERFLOW
+\*------------------------------------*/
+
+@mixin text-overflow{
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+
+/*------------------------------------*\
+	#Unstyle list
+\*------------------------------------*/
+
+@mixin un-list{
+	list-style-type: none;
+}
+
+
+/*------------------------------------*\
+	#POINTER EVENTS
+\*------------------------------------*/
+
+$p-hover: '&:hover';
+$p-focus: '&:focus';
+$p-active: '&:active';
+$p-event: "#{$p-hover}, #{$p-focus}, #{$p-active}";

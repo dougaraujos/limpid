@@ -1,0 +1,12 @@
+{
+  "name": "Limpid",
+  "version": "1.0.0",
+  "description": "Limpid",
+  "devDependencies": {
+    "gulp": "latest",
+    "gulp-sass": "latest",
+    "node-bourbon": "latest"
+  },
+  "author": "Douglas-Diego",
+  "license": "MIT"
+}

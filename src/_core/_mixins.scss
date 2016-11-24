@@ -1,0 +1,126 @@
+/*====================================*\
+	#MIXINS
+\*====================================*/
+
+
+/*------------------------------------*\
+	#GAUGE
+\*------------------------------------*/
+
+@mixin gauge(
+	$init: 0,  // Percentage init
+	$end: 100,  // Percentage end
+
+	$type: 360, // 180 || 360
+
+	$width: 80px,  //Gauge width
+	$inner-width: $width/2, //Gauge inner width
+
+	$color: #89238a, //Gauge color
+	$bg: #f8f8f8, //Gauge background color
+	$inner-bg: #fff //Gauge inner background color
+){
+	$this: '' !default;
+	$deg: '' !default;
+	@if $type == 180 {
+		$this: '&';
+		$deg: 1.8deg;
+	} @else {
+		$this: '> .half';
+		$deg: 3.6deg;
+	}
+
+	$height: $width/2;
+	$inner-height: $inner-width/2;
+	$init-deg: ($init * $deg);
+	$end-deg: ($end * $deg);
+
+	#{$this}{
+		display: block;
+		position: relative;
+		width: $width;
+		height: $height;
+		background: $bg;
+		border-radius: $width $width 0 0;
+		overflow: hidden;
+
+		>.meter,
+		&:after{
+			position: absolute;
+			display: block;
+			border-radius: inherit;
+			background: $color;
+			width: inherit;
+			height: inherit;
+		}
+		&:after{
+			content: '';
+			bottom: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			background: $inner-bg;
+			width: $inner-width;
+			height: $inner-height;
+		}
+		>.meter{
+			top: 0;
+			transition: transform 0.5s;
+			transform-origin: center bottom;
+
+			@if $init-deg > 180deg {
+				transform: rotate(0deg);
+			} @else {
+				transform: rotate($init-deg - 180deg);
+			}
+		}
+
+		@if $type == 360 {
+			&:nth-child(2){
+				border-radius: 0 0 $width $width;
+
+				&:after{
+					top: 0;
+					bottom: auto;
+				}
+				> .meter{
+					transform-origin: center top;
+
+					@if $init-deg > 180deg {
+						transform: rotate($init-deg);
+					} @else {
+						transform: rotate(180deg);
+					}
+				}
+			}
+		}
+	}
+
+	> .value{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		font-size: 6rem;
+		color: #89238A;
+	}
+}
+
+
+/*------------------------------------*\
+	#GRID RESPONSIVE
+\*------------------------------------*/
+
+@mixin grid($u:null,$sm:null,$md:null,$lg:null,$max:24){
+	@if $u != null {
+		@extend .lp-u-#{$u}-#{$max};
+	}
+	@if $sm!= null {
+		@extend .lp-u-sm-#{$sm}-#{$max};
+	}
+	@if $md != null {
+		@extend .lp-u-md-#{$md}-#{$max};
+	}
+	@if $lg != null {
+		@extend .lp-u-lg-#{$lg}-#{$max};
+	}
+}
